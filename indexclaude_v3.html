@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Site de vente de tous sortes de vêtements spécialisé au Bénin doté de partenariats internationaux">
+    <title>Product.Tad — Style & Mode au Bénin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styleclaude_v3.css">
+</head>
+<body>
+
+    <!-- SCROLL PROGRESS BAR -->
+    <div id="scroll-progress"></div>
+
+    <!-- PROMO POPUP -->
+    <div class="popup-overlay" id="promoPopup">
+        <div class="popup-box">
+            <button class="popup-close" onclick="closePopup()">×</button>
+            <span class="popup-emoji">🎉</span>
+            <h2 data-fr="Bienvenue chez Product.Tad !" data-en="Welcome to Product.Tad!">Bienvenue chez Product.Tad !</h2>
+            <p data-fr="Profite de -10% sur ta première commande avec le code ci-dessous. Valable aujourd'hui seulement !" data-en="Get -10% off your first order with the code below. Valid today only!">Profite de -10% sur ta première commande avec le code ci-dessous. Valable aujourd'hui seulement !</p>
+            <div class="popup-code" id="promoCode" onclick="copyCode(this)" title="Cliquer pour copier">PTAD10</div>
+            <div class="popup-actions">
+                <a href="Produit.html" target = "_blank" class="action-button pro" onclick="closePopup()" data-fr="En profiter →" data-en="Claim it →">En profiter →</a>
+            </div>
+            <button class="popup-dismiss" onclick="closePopup()" data-fr="Non merci, continuer sans code" data-en="No thanks, continue without code">Non merci, continuer sans code</button>
+        </div>
+    </div>
+
+    <!-- SEARCH OVERLAY -->
+    <div class="search-overlay" id="searchOverlay" onclick="closeSearch(event)">
+        <div class="search-box">
+            <div class="search-input-row">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Rechercher un produit..." oninput="runSearch(this.value)" autocomplete="off">
+                <button class="search-close-btn" onclick="closeSearchOverlay()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="search-results" id="searchResults"></div>
+        </div>
+    </div>
+
+    <!-- FLOATING ACTION BUTTONS -->
+    <div class="floating-actions">
+        <a href="https://wa.me/22900000000" target="_blank" class="fab fab-whatsapp" title="WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <button class="fab fab-dark" id="darkToggle" title="Mode sombre" onclick="toggleDark()">🌙</button>
+        <button class="fab fab-lang" id="langToggle" title="Switch language" onclick="toggleLang()">FR</button>
+        <button class="fab fab-top" id="backToTop" title="Retour en haut" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
+    </div>
+
+    <!-- WELCOME TYPEWRITER BANNER -->
+    <div class="welcome-banner">
+        <span class="typewriter-text" id="typewriterText"></span><span class="typewriter-cursor"></span>
+    </div>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="logo">
+            <a href="#tete" id="tete">Product<span>.</span>Tad</a>
+        </div>
+        <ul class="links">
+            <li><a href="#tete" data-fr="Accueil" data-en="Home">Accueil</a></li>
+            <li><a href="#boutique" data-fr="Boutique" data-en="Shop">Boutique</a></li>
+            <li><a href="#collections" data-fr="Collections" data-en="Collections">Collections</a></li>
+            <li><a href="#apropos" data-fr="À propos" data-en="About">À propos</a></li>
+            <li><a href="#contacts" data-fr="Contact" data-en="Contact">Contact</a></li>
+        </ul>
+        <div class="buttons" style="display:flex;align-items:center;gap:0.6rem;">
+            <button class="search-trigger" onclick="openSearch()" title="Rechercher"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <a href="formulaire.html" class="action-button pro" data-fr="Nous contacter" data-en="Contact us">Nous contacter</a>
+        </div>
+        <div class="burger-menu-button" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </div>
+
+    <!-- BURGER MENU -->
+    <div class="burger-menu" id="burgerMenu">
+        <ul>
+            <li><a href="#tete" onclick="toggleMenu()" data-fr="Accueil" data-en="Home">Accueil</a></li>
+            <li><a href="#boutique" onclick="toggleMenu()" data-fr="Boutique" data-en="Shop">Boutique</a></li>
+            <li><a href="#collections" onclick="toggleMenu()" data-fr="Collections" data-en="Collections">Collections</a></li>
+            <li><a href="#apropos" onclick="toggleMenu()" data-fr="À propos" data-en="About">À propos</a></li>
+            <li><a href="#contacts" onclick="toggleMenu()" data-fr="Contact" data-en="Contact">Contact</a></li>
+            <div class="divider"></div>
+            <div class="buttons-burger-menu">
+                <a href="formulaire.html" class="action-button pro" data-fr="Nous contacter" data-en="Contact us">Nous contacter</a>
+            </div>
+        </ul>
+    </div>
+
+    <!-- HEADER / HERO -->
+    <header>
+        <div class="hero">
+            <div class="hero-text">
+                <span class="tag" data-fr="✦ La Mode au Bénin" data-en="✦ Fashion in Benin">✦ La Mode au Bénin</span>
+                <h1 data-fr="Affirme ton<br>style. Sois <em>unique.</em>" data-en="Express your<br>style. Be <em>unique.</em>">Affirme ton<br>style. Sois <em>unique.</em></h1>
+                <p data-fr="Des vêtements modernes, sélectionnés avec soin pour révéler ta personnalité. Livraison rapide à Cotonou et partout au Bénin." data-en="Modern clothes, carefully selected to reveal your personality. Fast delivery in Cotonou and across Benin.">Des vêtements modernes, sélectionnés avec soin pour révéler ta personnalité. Livraison rapide à Cotonou et partout au Bénin.</p>
+                <div class="hero-buttons">
+                    <a href="Produit.html" class="action-button pro" data-fr="Découvrir la boutique →" data-en="Discover the shop →">Découvrir la boutique →</a>
+                    <a href="#collections" class="action-button outline" data-fr="Nos collections" data-en="Our collections">Nos collections</a>
+                </div>
+                <div class="hero-badges">
+                    <span class="badge"><i class="fa-solid fa-circle-check"></i> <span data-fr="Qualité garantie" data-en="Guaranteed quality">Qualité garantie</span></span>
+                    <span class="badge"><i class="fa-solid fa-circle-check"></i> <span data-fr="Livraison rapide" data-en="Fast delivery">Livraison rapide</span></span>
+                    <span class="badge"><i class="fa-solid fa-circle-check"></i> <span data-fr="Style exclusif" data-en="Exclusive style">Style exclusif</span></span>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div class="card-label">Nouvelle arrivée</div>
+                    <div class="card-title">T-shirt Signature — Collection Été</div>
+                    <div class="product-preview"><img src="11.jpeg" alt=""></div>
+                    <div class="card-price-row">
+                        <div class="card-price">10 000 <span>FCFA</span></div>
+                        <button class="card-btn">Ajouter →</button>
+                    </div>
+                </div>
+                <div class="floating-badge">
+                    <div class="dot"></div> En stock · Livraison 24h
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- BEST SELLERS -->
+        <div class="products-section" id="boutique">
+            <div class="inner">
+                <div class="products-header reveal">
+                    <div>
+                        <span class="section-tag" data-fr="BOUTIQUE" data-en="SHOP">BOUTIQUE</span>
+                        <h2 class="section-title" data-fr="Nos meilleures ventes" data-en="Our best sellers">Nos meilleures ventes</h2>
+                        <p class="section-sub" data-fr="Les pièces les plus appréciées par nos clients — style, qualité et confort réunis." data-en="The most appreciated pieces by our customers — style, quality and comfort combined.">Les pièces les plus appréciées par nos clients — style, qualité et confort réunis.</p>
+                    </div>
+                    <a href="Produit.html" class="action-button pro" data-fr="Voir tout →" data-en="See all →">Voir tout →</a>
+                </div>
+                <div class="filter-bar reveal">
+                    <span class="filter-label" data-fr="Filtrer :" data-en="Filter:">Filtrer :</span>
+                    <button class="filter-btn active" data-filter="all" onclick="filterProducts(this)" data-fr="Tout" data-en="All">Tout</button>
+                    <button class="filter-btn" data-filter="tshirt" onclick="filterProducts(this)" data-fr="T-shirts" data-en="T-shirts">T-shirts</button>
+                    <button class="filter-btn" data-filter="chemise" onclick="filterProducts(this)" data-fr="Chemises" data-en="Shirts">Chemises</button>
+                    <button class="filter-btn" data-filter="veste" onclick="filterProducts(this)" data-fr="Vestes" data-en="Jackets">Vestes</button>
+                    <button class="filter-btn" data-filter="pantalon" onclick="filterProducts(this)" data-fr="Pantalons" data-en="Pants">Pantalons</button>
+                </div>
+                <div class="product-grid reveal-stagger">
+                    <div class="product-card reveal-scale" data-category="tshirt">
+                        <div class="product-img">
+                            <img src="23.jpeg" alt="">
+                            <span class="product-badge" data-fr="Populaire" data-en="Popular">Populaire</span>
+                        </div>
+                        <div class="product-info">
+                            <h3 data-fr="T-shirt Noir Premium" data-en="Premium Black T-shirt">T-shirt Noir Premium</h3>
+                            <p class="price">10 000 FCFA</p>
+                        </div>
+                    </div>
+                    <div class="product-card reveal-scale" data-category="chemise">
+                        <div class="product-img">
+                            <img src="22.jpeg" alt="">
+                        </div>
+                        <div class="product-info">
+                            <h3 data-fr="Chemise Blanche Classique" data-en="Classic White Shirt">Chemise Blanche Classique</h3>
+                            <p class="price">15 000 FCFA</p>
+                        </div>
+                    </div>
+                    <div class="product-card reveal-scale" data-category="veste">
+                        <div class="product-img">
+                            <img src="15.jpeg" alt="">
+                            <span class="product-badge" data-fr="Nouveau" data-en="New">Nouveau</span>
+                        </div>
+                        <div class="product-info">
+                            <h3 data-fr="Veste Légère Tendance" data-en="Trendy Light Jacket">Veste Légère Tendance</h3>
+                            <p class="price">28 000 FCFA</p>
+                        </div>
+                    </div>
+                    <div class="product-card reveal-scale" data-category="pantalon">
+                        <div class="product-img">
+                            <img src="12.jpeg" alt="">
+                        </div>
+                        <div class="product-info">
+                            <h3 data-fr="Jean Slim Moderne" data-en="Modern Slim Jeans">Jean Slim Moderne</h3>
+                            <p class="price">18 500 FCFA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DEUX COLLECTIONS -->
+        <div id="collections">
+            <div class="two-col">
+                <div class="col-card reveal-left">
+                    <div class="col-icon"><i class="fa-solid fa-store"></i></div>
+                    <h3 data-fr="Collection Locale — Product.Tad" data-en="Local Collection — Product.Tad">Collection Locale — Product.Tad</h3>
+                    <p data-fr="Découvrez nos créations disponibles immédiatement, sélectionnées avec exigence et prêtes à être livrées rapidement." data-en="Discover our immediately available creations, selected with care and ready to be delivered quickly.">Découvrez nos créations disponibles immédiatement, sélectionnées avec exigence et prêtes à être livrées rapidement.</p>
+                    <ul class="check-list">
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-fr="Qualité contrôlée" data-en="Controlled quality">Qualité contrôlée</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-fr="Livraison rapide à Cotonou" data-en="Fast delivery in Cotonou">Livraison rapide à Cotonou</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-fr="Disponible en stock" data-en="In stock">Disponible en stock</span></li>
+                    </ul>
+                    <a href="Produit.html" class="link-arrow" data-fr="Acheter maintenant →" data-en="Buy now →">Acheter maintenant →</a>
+                </div>
+                <div class="col-card dark reveal">
+                    <div class="col-icon"><i class="fa-solid fa-globe"></i></div>
+                    <h3 data-fr="Collection Partenaire" data-en="Partner Collection">Collection Partenaire</h3>
+                    <p data-fr="Accédez à une sélection exclusive de vêtements tendance grâce à nos partenaires nationaux et internationaux." data-en="Access an exclusive selection of trendy clothes thanks to our national and international partners.">Accédez à une sélection exclusive de vêtements tendance grâce à nos partenaires nationaux et internationaux.</p>
+                    <ul class="check-list">
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-fr="Produits exclusifs" data-en="Exclusive products">Produits exclusifs</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-fr="Large choix de styles" data-en="Wide range of styles">Large choix de styles</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-fr="Livraison internationale" data-en="International delivery">Livraison internationale</span></li>
+                    </ul>
+                    <a href="Produit.html" class="link-arrow" data-fr="Explorer la collection →" data-en="Explore the collection →">Explorer la collection →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats-section">
+            <div class="inner">
+                <span class="section-tag" style="color:var(--orange)" data-fr="L'IMPACT PRODUCT.TAD" data-en="PRODUCT.TAD IMPACT">L'IMPACT PRODUCT.TAD</span>
+                <h2 class="section-title" style="color:var(--white); margin-bottom:0.5rem" data-fr="Ils nous font confiance." data-en="They trust us.">Ils nous font confiance.</h2>
+                <p class="section-sub" data-fr="Chaque commande compte. Nous grandissons grâce à votre confiance." data-en="Every order matters. We grow thanks to your trust.">Chaque commande compte. Nous grandissons grâce à votre confiance.</p>
+                <div class="stats-grid reveal-stagger">
+                    <div class="stat-card reveal">
+                        <div class="stat-num" data-count="500" data-suffix="+">0</div>
+                        <div class="stat-label" data-fr="Clients satisfaits à travers le Bénin" data-en="Satisfied customers across Benin">Clients satisfaits à travers le Bénin</div>
+                    </div>
+                    <div class="stat-card reveal">
+                        <div class="stat-num" data-count="98" data-suffix="%">0</div>
+                        <div class="stat-label" data-fr="Taux de satisfaction client" data-en="Customer satisfaction rate">Taux de satisfaction client</div>
+                    </div>
+                    <div class="stat-card reveal">
+                        <div class="stat-num" data-count="24" data-suffix="h">0</div>
+                        <div class="stat-label" data-fr="Délai de livraison moyen à Cotonou" data-en="Average delivery time in Cotonou">Délai de livraison moyen à Cotonou</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HOW IT WORKS -->
+        <div class="steps-section">
+            <div class="inner">
+                <span class="section-tag" data-fr="COMMENT ÇA MARCHE" data-en="HOW IT WORKS">COMMENT ÇA MARCHE</span>
+                <h2 class="section-title reveal" data-fr="Simple en 3 étapes." data-en="Simple in 3 steps.">Simple en 3 étapes.</h2>
+                <div class="steps-grid reveal-stagger">
+                    <div class="step reveal">
+                        <div class="step-num">1</div>
+                        <h3 data-fr="Parcours la boutique" data-en="Browse the shop">Parcours la boutique</h3>
+                        <p data-fr="Explore nos collections locales et partenaires. Filtre par style, taille ou prix." data-en="Explore our local and partner collections. Filter by style, size, or price.">Explore nos collections locales et partenaires. Filtre par style, taille ou prix.</p>
+                    </div>
+                    <div class="step reveal">
+                        <div class="step-num">2</div>
+                        <h3 data-fr="Passe ta commande" data-en="Place your order">Passe ta commande</h3>
+                        <p data-fr="Sélectionne tes pièces et commande facilement via WhatsApp ou notre formulaire." data-en="Select your items and order easily via WhatsApp or our form.">Sélectionne tes pièces et commande facilement via WhatsApp ou notre formulaire.</p>
+                    </div>
+                    <div class="step reveal">
+                        <div class="step-num">3</div>
+                        <h3 data-fr="Reçois chez toi" data-en="Receive at home">Reçois chez toi</h3>
+                        <p data-fr="Livraison rapide et sécurisée à Cotonou et partout au Bénin." data-en="Fast and secure delivery in Cotonou and across Benin.">Livraison rapide et sécurisée à Cotonou et partout au Bénin.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- POURQUOI NOUS -->
+        <div id="apropos" style="background: var(--bg-off); padding: 6rem 5%;">
+            <div style="max-width:1200px; margin:0 auto;">
+                <span class="section-tag" data-fr="POURQUOI NOUS" data-en="WHY US">POURQUOI NOUS</span>
+                <h2 class="section-title reveal" data-fr="Pourquoi choisir Product.Tad ?" data-en="Why choose Product.Tad?">Pourquoi choisir Product.Tad ?</h2>
+                <div class="steps-grid reveal-stagger" style="margin-top:2.5rem;">
+                    <div class="step reveal">
+                        <div class="step-num"><i class="fa-solid fa-star" style="font-size:0.9rem"></i></div>
+                        <h3 data-fr="Qualité garantie" data-en="Guaranteed quality">Qualité garantie</h3>
+                        <p data-fr="Chaque produit est sélectionné avec attention pour garantir votre satisfaction." data-en="Each product is carefully selected to ensure your satisfaction.">Chaque produit est sélectionné avec attention pour garantir votre satisfaction.</p>
+                    </div>
+                    <div class="step reveal">
+                        <div class="step-num"><i class="fa-solid fa-wand-magic-sparkles" style="font-size:0.8rem"></i></div>
+                        <h3 data-fr="Style moderne" data-en="Modern style">Style moderne</h3>
+                        <p data-fr="Des vêtements adaptés aux tendances actuelles, pour exprimer qui tu es vraiment." data-en="Clothes adapted to current trends, to express who you really are.">Des vêtements adaptés aux tendances actuelles, pour exprimer qui tu es vraiment.</p>
+                    </div>
+                    <div class="step reveal">
+                        <div class="step-num"><i class="fa-solid fa-headset" style="font-size:0.8rem"></i></div>
+                        <h3 data-fr="Service client réactif" data-en="Responsive customer service">Service client réactif</h3>
+                        <p data-fr="Nous sommes disponibles pour vous accompagner à tout moment via WhatsApp." data-en="We are available to assist you at any time via WhatsApp.">Nous sommes disponibles pour vous accompagner à tout moment via WhatsApp.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AVIS -->
+        <div class="avis-section">
+            <div class="inner">
+                <span class="section-tag" data-fr="TÉMOIGNAGES" data-en="TESTIMONIALS">TÉMOIGNAGES</span>
+                <h2 class="section-title reveal" data-fr="Ce que disent nos clients" data-en="What our customers say">Ce que disent nos clients</h2>
+                <div class="avis-grid reveal-stagger">
+                    <div class="avis-card reveal">
+                        <div class="avis-stars">★★★★★</div>
+                        <p data-fr='"Très bonne qualité, je suis vraiment satisfait de mon achat. Je recommande Product.Tad sans hésiter."' data-en='"Very good quality, I am really satisfied with my purchase. I recommend Product.Tad without hesitation."'>"Très bonne qualité, je suis vraiment satisfait de mon achat. Je recommande Product.Tad sans hésiter."</p>
+                        <div class="avis-author" data-fr="— Client, Cotonou" data-en="— Customer, Cotonou">— Client, Cotonou</div>
+                    </div>
+                    <div class="avis-card reveal">
+                        <div class="avis-stars">★★★★★</div>
+                        <p data-fr='"Livraison rapide et produit conforme à la photo. Le service est au top, je vais commander encore."' data-en='"Fast delivery and product matching the photo. The service is top-notch, I will order again."'>"Livraison rapide et produit conforme à la photo. Le service est au top, je vais commander encore."</p>
+                        <div class="avis-author" data-fr="— Cliente, Porto-Novo" data-en="— Customer, Porto-Novo">— Cliente, Porto-Novo</div>
+                    </div>
+                    <div class="avis-card reveal">
+                        <div class="avis-stars">★★★★★</div>
+                        <p data-fr='"Le style est incroyable ! J\'ai reçu beaucoup de compliments. Je suis fan de cette boutique !"' data-en='"The style is incredible! I received many compliments. I am a fan of this shop!"'>"Le style est incroyable ! J'ai reçu beaucoup de compliments. Je suis fan de cette boutique !"</p>
+                        <div class="avis-author" data-fr="— Cliente, Parakou" data-en="— Customer, Parakou">— Cliente, Parakou</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <div class="inner reveal">
+                <h2 data-fr="Prêt à améliorer ton style ?" data-en="Ready to upgrade your style?">Prêt à améliorer ton style ?</h2>
+                <p data-fr="Parcours notre collection et trouve les pièces qui te correspondent. Livraison rapide partout au Bénin." data-en="Browse our collection and find the pieces that suit you. Fast delivery across Benin.">Parcours notre collection et trouve les pièces qui te correspondent. Livraison rapide partout au Bénin.</p>
+                <a href="Produit.html" class="action-button white" style="font-size:1rem; padding:0.9rem 2rem;" data-fr="Acheter maintenant →" data-en="Buy now →">Acheter maintenant →</a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- CAROUSEL NOUVEAUTÉS -->
+    <div class="carousel-section">
+        <div class="carousel-inner-wrap">
+            <div class="carousel-header reveal">
+                <div>
+                    <span class="section-tag" data-fr="NOUVEAUTÉS" data-en="NEW ARRIVALS">NOUVEAUTÉS</span>
+                    <h2 class="section-title" data-fr="Dernières arrivées" data-en="Latest arrivals">Dernières arrivées</h2>
+                </div>
+                <div class="carousel-nav">
+                    <button class="carousel-btn" id="carouselPrev"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="carousel-btn" id="carouselNext"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+            <div class="carousel-track-wrap">
+                <div class="carousel-track" id="carouselTrack">
+                    <div class="carousel-card"><div class="carousel-img"><img src="20.jpeg" alt=""></div><div class="carousel-info"><h4 data-fr="Robe Élégante" data-en="Elegant Dress">Robe Élégante</h4><p class="price">22 000 FCFA</p></div></div>
+                    <div class="carousel-card"><div class="carousel-img"><img src="21.jpeg" alt=""></div><div class="carousel-info"><h4 data-fr="Casquette Streetwear" data-en="Streetwear Cap">Casquette Streetwear</h4><p class="price">6 500 FCFA</p></div></div>
+                    <div class="carousel-card"><div class="carousel-img"><img src="24.jpeg" alt=""></div><div class="carousel-info"><h4 data-fr="Sneakers Blanches" data-en="White Sneakers">Sneakers Blanches</h4><p class="price">35 000 FCFA</p></div></div>
+                    <div class="carousel-card"><div class="carousel-img"><img src="25.jpeg" alt=""></div><div class="carousel-info"><h4 data-fr="Écharpe Douce" data-en="Soft Scarf">Écharpe Douce</h4><p class="price">5 000 FCFA</p></div></div>
+                    <div class="carousel-card"><div class="carousel-img"><img src="19.jpeg" alt=""></div><div class="carousel-info"><h4 data-fr="Ensemble Wax" data-en="Wax Set">Ensemble Wax</h4><p class="price">28 000 FCFA</p></div></div>
+                    <div class="carousel-card"><div class="carousel-img"><img src="18.jpeg" alt=""></div><div class="carousel-info"><h4 data-fr="Débardeur Slim" data-en="Slim Tank Top">Débardeur Slim</h4><p class="price">8 000 FCFA</p></div></div>
+                    <div class="carousel-card"><div class="carousel-img"><img src="WhatsApp Image 2026-03-26 at 19.44.24.jpeg" alt=""></div><div class="carousel-info"><h4 data-fr="Gants Style" data-en="Style Gloves">Gants Style</h4><p class="price">4 500 FCFA</p></div></div>
+                    <div class="carousel-card"><div class="carousel-img"><img src="8.jpeg" alt=""></div><div class="carousel-info"><h4 data-fr="Sandales Cuir" data-en="Leather Sandals">Sandales Cuir</h4><p class="price">12 000 FCFA</p></div></div>
+                </div>
+            </div>
+            <div class="carousel-dots" id="carouselDots"></div>
+        </div>
+    </div>
+
+    <!-- SECTION NEWSLETTER -->
+    <div class="newsletter-section">
+        <div class="newsletter-inner reveal">
+            <span class="section-tag" data-fr="NEWSLETTER" data-en="NEWSLETTER">NEWSLETTER</span>
+            <h2 data-fr="Reçois nos offres en avant-première" data-en="Get our exclusive offers first">Reçois nos offres en avant-première</h2>
+            <p data-fr="Inscris-toi et sois le premier informé des nouvelles collections, promotions et arrivages." data-en="Sign up and be the first to know about new collections, promotions and arrivals.">Inscris-toi et sois le premier informé des nouvelles collections, promotions et arrivages.</p>
+            <div class="newsletter-form">
+                <input type="email" id="nlEmail" placeholder="ton@email.com" data-fr-placeholder="ton@email.com" data-en-placeholder="your@email.com">
+                <button class="action-button pro" onclick="submitNewsletter()" data-fr="S'inscrire →" data-en="Subscribe →">S'inscrire →</button>
+            </div>
+            <div class="newsletter-success" id="nlSuccess">
+                <i class="fa-solid fa-circle-check"></i>
+                <span data-fr="Merci ! Tu es bien inscrit(e) 🎉" data-en="Thanks! You're subscribed 🎉">Merci ! Tu es bien inscrit(e) 🎉</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION AVIS AVEC ÉTOILES -->
+    <div class="rating-section">
+        <div class="rating-inner reveal">
+            <span class="section-tag" data-fr="DONNER TON AVIS" data-en="LEAVE A REVIEW">DONNER TON AVIS</span>
+            <h2 data-fr="Tu as acheté chez nous ?" data-en="Did you shop with us?">Tu as acheté chez nous ?</h2>
+            <p data-fr="Laisse-nous une note et dis-nous ce que tu as pensé." data-en="Leave us a rating and tell us what you thought.">Laisse-nous une note et dis-nous ce que tu as pensé.</p>
+            <div class="star-row" id="starRow">
+                <span data-star="1">★</span>
+                <span data-star="2">★</span>
+                <span data-star="3">★</span>
+                <span data-star="4">★</span>
+                <span data-star="5">★</span>
+            </div>
+            <textarea class="rating-comment" id="ratingComment" placeholder="Ton commentaire (optionnel)..."></textarea>
+            <button class="action-button pro" onclick="submitRating()" data-fr="Envoyer mon avis →" data-en="Send my review →">Envoyer mon avis →</button>
+            <p class="rating-feedback" id="ratingFeedback"></p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="contacts">
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div>
+                    <div class="footer-logo">Product<span>.</span>Tad</div>
+                    <p class="footer-desc">Votre destination pour un style unique et moderne au Bénin. Qualité, rapidité, exclusivité.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Boutique</h4>
+                    <ul>
+                        <li><a href="#">Nouveautés</a></li>
+                        <li><a href="#">Meilleures ventes</a></li>
+                        <li><a href="#">Collection locale</a></li>
+                        <li><a href="#">Collection partenaire</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>À propos</h4>
+                    <ul>
+                        <li><a href="#">Notre histoire</a></li>
+                        <li><a href="#">Livraison</a></li>
+                        <li><a href="#">Retours</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="#">WhatsApp</a></li>
+                        <li><a href="formulaire.html">Email</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">TikTok</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 Product.Tad · Tous droits réservés</span>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="scriptclaude_v3.js"></script>
+</body>
+</html>
